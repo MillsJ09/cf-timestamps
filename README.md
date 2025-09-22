@@ -1,1 +1,1 @@
-# cf-timestamps
+# Condor Ferries Roblox Timestamp Generator
