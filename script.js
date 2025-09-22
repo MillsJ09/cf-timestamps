@@ -1,34 +1,51 @@
-document.getElementById("briefTime").addEventListener("input", updateTimes);
-document.getElementById("checkpointOverride").addEventListener("input", updateTimes);
-document.getElementById("vehicleOverride").addEventListener("input", updateTimes);
+// wire up listeners
+document.getElementById("briefTime").addEventListener("input", updateAll);
+document.getElementById("checkpointOverride").addEventListener("input", updateAll);
+document.getElementById("vehicleOverride").addEventListener("input", updateAll);
 
-function updateTimes() {
-  const briefTime = document.getElementById("briefTime").value;
-  if (!briefTime) return;
+// copy buttons
+document.querySelectorAll(".copy-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const outId = btn.dataset.target;
+    const text = document.getElementById(outId).textContent;
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        btn.textContent = "Copied!";
+        setTimeout(() => btn.textContent = "Copy", 1500);
+      })
+      .catch(() => {
+        btn.textContent = "Failed";
+        setTimeout(() => btn.textContent = "Copy", 1500);
+      });
+  });
+});
 
-  const [hours, minutes] = briefTime.split(":").map(Number);
-  const baseDate = new Date();
-  baseDate.setHours(hours, minutes, 0, 0);
+function updateAll() {
+  const brief = document.getElementById("briefTime").value;
+  if (!brief) return;
 
-  updateField("checkpointOverride", "checkpointUnix", baseDate, 30);
-  updateField("vehicleOverride", "vehicleUnix", baseDate, -15);
+  const [h, m] = brief.split(":").map(Number);
+  const base = new Date();
+  base.setHours(h, m, 0, 0);
+
+  // two fields: [inputId, outputId, offsetMinutes]
+  const rules = [
+    ["checkpointOverride", "checkpointUnix", 30],
+    ["vehicleOverride",   "vehicleUnix",   -15]
+  ];
+
+  rules.forEach(([inId, outId, offset]) => {
+    const override = document.getElementById(inId).value;
+    const dt = override
+      ? parseTime(override)
+      : new Date(base.getTime() + offset * 60000);
+    document.getElementById(outId).textContent = Math.floor(dt.getTime() / 1000);
+  });
 }
 
-function updateField(inputId, outputId, baseDate, offsetMinutes) {
-  const override = document.getElementById(inputId).value;
-  const date = override ? parseTime(override) : new Date(baseDate.getTime() + offsetMinutes * 60000);
-  const unix = Math.floor(date.getTime() / 1000);
-  document.getElementById(outputId).textContent = unix;
-}
-
-function parseTime(timeStr) {
-  const [h, m] = timeStr.split(":").map(Number);
+function parseTime(str) {
+  const [h, m] = str.split(":").map(Number);
   const d = new Date();
   d.setHours(h, m, 0, 0);
   return d;
-}
-
-function copyUnix(id) {
-  const text = document.getElementById(id).textContent;
-  navigator.clipboard.writeText(text);
 }
