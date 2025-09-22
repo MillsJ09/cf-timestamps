@@ -14,7 +14,7 @@ h1 {
 .card {
   background: #fff;
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -28,20 +28,21 @@ label {
 input[type="time"] {
   padding: 0.5rem;
   font-size: 1rem;
-  margin-bottom: 0.5rem;
   width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.output-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #eef;
+  padding: 0.5rem;
+  border-radius: 4px;
 }
 
 button {
   padding: 0.4rem 0.8rem;
   font-size: 0.9rem;
-  margin-bottom: 0.5rem;
   cursor: pointer;
-}
-
-.output {
-  font-family: monospace;
-  background: #eef;
-  padding: 0.5rem;
-  border-radius: 4px;
 }
