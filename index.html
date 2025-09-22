@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timestamp Flow Tool</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🕒 Timestamp Flow Tool</h1>
+
+  <div class="input-block">
+    <label for="briefTime">Brief Time:</label>
+    <input type="time" id="briefTime" />
+  </div>
+
+  <div class="output-block">
+    <label>Checkpoint Opens (+30 mins):</label>
+    <span id="checkpointOpens">--:--</span>
+  </div>
+
+  <div class="output-block">
+    <label>Vehicle Close (-15 mins):</label>
+    <span id="vehicleClose">--:--</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
