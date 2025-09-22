@@ -2,55 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Timestamp Flow Tool</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>🕒 Timestamp Flow Tool</h1>
 
+  <!-- Base brief time -->
   <div class="card">
     <label for="briefTime">Brief Time</label>
     <input type="time" id="briefTime" />
   </div>
 
-  <div class="card">
+  <!-- Event cards: one per rule in script.js -->
+  <div class="card" id="card-checkpoint">
     <label>Checkpoint Opens <small>(+30 min)</small></label>
-    <input
-      type="time"
-      id="checkpointOverride"
-      placeholder="Manual override"
-    />
+    <input type="time" id="checkpointOverride" placeholder="Manual override" />
     <div class="output-row">
       <code id="checkpointUnix">--</code>
-      <button
-        type="button"
-        class="copy-btn"
-        data-target="checkpointUnix"
-      >
-        Copy
-      </button>
+      <button type="button" class="copy-btn" data-target="checkpointUnix">Copy</button>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-vehicle">
     <label>Vehicle Close <small>(–15 min)</small></label>
-    <input
-      type="time"
-      id="vehicleOverride"
-      placeholder="Manual override"
-    />
+    <input type="time" id="vehicleOverride" placeholder="Manual override" />
     <div class="output-row">
       <code id="vehicleUnix">--</code>
-      <button
-        type="button"
-        class="copy-btn"
-        data-target="vehicleUnix"
-      >
-        Copy
-      </button>
+      <button type="button" class="copy-btn" data-target="vehicleUnix">Copy</button>
     </div>
   </div>
+
+  <!-- Add more cards here for each eventId in eventRules -->
+  <!-- e.g. footClose, vesselDep, staffBreak, etc. -->
 
   <script src="script.js"></script>
 </body>
