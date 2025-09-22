@@ -1,20 +1,38 @@
-document.getElementById("briefTime").addEventListener("input", function () {
-  const briefTime = this.value;
+document.getElementById("briefTime").addEventListener("input", updateTimes);
+document.getElementById("checkpointOverride").addEventListener("input", updateTimes);
+document.getElementById("vehicleOverride").addEventListener("input", updateTimes);
+
+function updateTimes() {
+  const briefTime = document.getElementById("briefTime").value;
   if (!briefTime) return;
 
   const [hours, minutes] = briefTime.split(":").map(Number);
-  const briefDate = new Date();
-  briefDate.setHours(hours, minutes, 0, 0);
+  const baseDate = new Date();
+  baseDate.setHours(hours, minutes, 0, 0);
 
-  // Checkpoint Opens: +30 mins
-  const checkpointDate = new Date(briefDate.getTime() + 30 * 60000);
-  document.getElementById("checkpointOpens").textContent = formatTime(checkpointDate);
+  // Checkpoint Opens (+30 mins)
+  const checkpointInput = document.getElementById("checkpointOverride").value;
+  const checkpointDate = checkpointInput
+    ? parseTime(checkpointInput)
+    : new Date(baseDate.getTime() + 30 * 60000);
+  document.getElementById("checkpointUnix").textContent = Math.floor(checkpointDate.getTime() / 1000);
 
-  // Vehicle Close: -15 mins
-  const vehicleDate = new Date(briefDate.getTime() - 15 * 60000);
-  document.getElementById("vehicleClose").textContent = formatTime(vehicleDate);
-});
+  // Vehicle Close (-15 mins)
+  const vehicleInput = document.getElementById("vehicleOverride").value;
+  const vehicleDate = vehicleInput
+    ? parseTime(vehicleInput)
+    : new Date(baseDate.getTime() - 15 * 60000);
+  document.getElementById("vehicleUnix").textContent = Math.floor(vehicleDate.getTime() / 1000);
+}
 
-function formatTime(date) {
-  return date.toTimeString().slice(0, 5);
+function parseTime(timeStr) {
+  const [h, m] = timeStr.split(":").map(Number);
+  const d = new Date();
+  d.setHours(h, m, 0, 0);
+  return d;
+}
+
+function copyUnix(id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text);
 }
