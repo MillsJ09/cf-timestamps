@@ -10,19 +10,15 @@ function updateTimes() {
   const baseDate = new Date();
   baseDate.setHours(hours, minutes, 0, 0);
 
-  // Checkpoint Opens (+30 mins)
-  const checkpointInput = document.getElementById("checkpointOverride").value;
-  const checkpointDate = checkpointInput
-    ? parseTime(checkpointInput)
-    : new Date(baseDate.getTime() + 30 * 60000);
-  document.getElementById("checkpointUnix").textContent = Math.floor(checkpointDate.getTime() / 1000);
+  updateField("checkpointOverride", "checkpointUnix", baseDate, 30);
+  updateField("vehicleOverride", "vehicleUnix", baseDate, -15);
+}
 
-  // Vehicle Close (-15 mins)
-  const vehicleInput = document.getElementById("vehicleOverride").value;
-  const vehicleDate = vehicleInput
-    ? parseTime(vehicleInput)
-    : new Date(baseDate.getTime() - 15 * 60000);
-  document.getElementById("vehicleUnix").textContent = Math.floor(vehicleDate.getTime() / 1000);
+function updateField(inputId, outputId, baseDate, offsetMinutes) {
+  const override = document.getElementById(inputId).value;
+  const date = override ? parseTime(override) : new Date(baseDate.getTime() + offsetMinutes * 60000);
+  const unix = Math.floor(date.getTime() / 1000);
+  document.getElementById(outputId).textContent = unix;
 }
 
 function parseTime(timeStr) {
