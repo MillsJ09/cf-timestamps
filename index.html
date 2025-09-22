@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Timestamp Flow Tool</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -10,25 +10,25 @@
   <h1>🕒 Timestamp Flow Tool</h1>
 
   <div class="card">
-    <label for="briefTime">Brief Time:</label>
+    <label for="briefTime">Brief Time</label>
     <input type="time" id="briefTime" />
   </div>
 
   <div class="card">
-    <label>Checkpoint Opens (+30 mins):</label>
+    <label>Checkpoint Opens <small>(+30 min)</small></label>
     <input type="time" id="checkpointOverride" placeholder="Manual override" />
     <div class="output-row">
-      <span id="checkpointUnix">--</span>
-      <button onclick="copyUnix('checkpointUnix')">Copy</button>
+      <code id="checkpointUnix">--</code>
+      <button type="button" class="copy-btn" data-target="checkpointUnix">Copy</button>
     </div>
   </div>
 
   <div class="card">
-    <label>Vehicle Close (-15 mins):</label>
+    <label>Vehicle Close <small>(–15 min)</small></label>
     <input type="time" id="vehicleOverride" placeholder="Manual override" />
     <div class="output-row">
-      <span id="vehicleUnix">--</span>
-      <button onclick="copyUnix('vehicleUnix')">Copy</button>
+      <code id="vehicleUnix">--</code>
+      <button type="button" class="copy-btn" data-target="vehicleUnix">Copy</button>
     </div>
   </div>
 
